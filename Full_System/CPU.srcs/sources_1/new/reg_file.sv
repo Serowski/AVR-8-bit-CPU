@@ -6,7 +6,7 @@ module reg_file#(
     parameter int REG_COUNT = 32
 )(
     // Zegar
-    input logic aclk,
+    input logic i_clk,
     
     // Dwa porty do odczytu
     input logic [ADDR_WIDTH-1:0] i_rd_addr1,
@@ -36,7 +36,7 @@ module reg_file#(
     end
     
     // Synchroniczny zapis
-    always_ff @(posedge aclk) begin
+    always_ff @(posedge i_clk) begin
         if(i_wr_en) begin
             regs[i_wr_addr] <= i_wr_data;
         end

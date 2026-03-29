@@ -7,8 +7,6 @@ module alu(
     output logic [5:0] o_Flag  
 );
     import avr_pkg::*;
-    alu_op op;
-    assign op = alu_op'(i_alu_op);
     
     logic [8:0] f_Res;
     
@@ -18,38 +16,38 @@ module alu(
         o_Flag = 6'b000000;
         
         case(i_alu_op)
-            ADD: begin
+            ALU_ADD: begin
                 f_Res = {1'b0, i_Rd} + {1'b0, i_Rr};       
                  
             end
-            ADC: begin
+            ALU_ADC: begin
                 f_Res = {1'b0, i_Rd} + {1'b0, i_Rr} + i_C_in;  
             end
-            SUB: begin
+            ALU_SUB: begin
                 f_Res = {1'b0, i_Rd} - {1'b0, i_Rr};     
             end   
-            SBC: begin
+            ALU_SBC: begin
                 f_Res = {1'b0, i_Rd} - {1'b0, i_Rr} - i_C_in;  
             end
-            ANDD: begin
+            ALU_AND: begin
                 f_Res[7:0] = i_Rd & i_Rr;
             end         
-            ORR: begin 
+            ALU_OR: begin 
                 f_Res[7:0] = i_Rd | i_Rr;        
             end
-            EOR: begin
+            ALU_EOR: begin
                 f_Res[7:0] = i_Rd ^ i_Rr;        
             end
-            INC: begin
+            ALU_INC: begin
                 f_Res[7:0] = i_Rd + 8'h01;           
             end
-            DEC: begin
+            ALU_DEC: begin
                 f_Res[7:0] = i_Rd - 8'h01;            
             end
-            CLR: begin
+            ALU_CLR: begin
                 f_Res[7:0] = 8'h00;              
             end
-            SER: begin
+            ALU_SER: begin
                 f_Res[7:0] = 8'hFF;               
             end
             default: f_Res[7:0] = '0;

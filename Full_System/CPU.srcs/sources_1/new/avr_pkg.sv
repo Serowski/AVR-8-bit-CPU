@@ -1,19 +1,18 @@
 package avr_pkg;
     
     // Operacje dla ALU
-    typedef enum logic [5:0] {
-        ADD = 6'b000000,
-        ADC = 6'b000001,
-        SUB = 6'b000010,
-        SBC = 6'b000011,
-        ANDD = 6'b000100,
-        ORR = 6'b000101,
-        EOR = 6'b000110,
-        INC = 6'b000111,
-        DEC = 6'b001000,
-        CLR = 6'b001001,
-        SER = 6'b001010
-    }alu_op;
+    parameter int ALU_ADD = 0;
+    parameter int ALU_ADC = 1;
+    parameter int ALU_SUB = 2;
+    parameter int ALU_SBC = 3;
+    parameter int ALU_AND = 4;
+    parameter int ALU_OR = 5;
+    parameter int ALU_EOR = 6;
+    parameter int ALU_INC = 7;
+    parameter int ALU_DEC = 8;
+    parameter int ALU_CLR = 9;
+    parameter int ALU_SER = 10;
+
     
     // Flagi
     parameter int SREG_C = 0;

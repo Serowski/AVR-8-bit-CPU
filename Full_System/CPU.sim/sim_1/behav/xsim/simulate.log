@@ -1,1 +1,36 @@
 Time resolution is 1 ps
+=== TB SREG START ===
+--- Test 1: Reset ---
+PASS Async reset w środku cyklu
+--- Test 2: Zapis WE=1 ---
+PASS [16000 ns] Zapis 0xAA | WE=1 IN=0xaa | out=0xaa
+PASS [26000 ns] Zapis 0x55 | WE=1 IN=0x55 | out=0x55
+PASS [36000 ns] Zapis 0xFF | WE=1 IN=0xff | out=0xff
+PASS [46000 ns] Zapis 0x00 | WE=1 IN=0x00 | out=0x00
+--- Test 3: Hold WE=0 ---
+PASS [56000 ns] Setup 0x3C | WE=1 IN=0x3c | out=0x3c
+PASS [66000 ns] Hold przy 0xAA | WE=0 IN=0xaa | out=0x3c
+PASS [76000 ns] Hold przy 0x00 | WE=0 IN=0x00 | out=0x3c
+PASS [86000 ns] Hold przy 0xFF | WE=0 IN=0xff | out=0x3c
+--- Test 4: Flagi individualne ---
+PASS [96000 ns] Flaga C | WE=1 IN=0x01 | out=0x01
+PASS [106000 ns] Kasuj C | WE=1 IN=0x00 | out=0x00
+PASS [116000 ns] Flaga Z | WE=1 IN=0x02 | out=0x02
+PASS [126000 ns] Flaga N | WE=1 IN=0x04 | out=0x04
+PASS [136000 ns] Flaga V | WE=1 IN=0x08 | out=0x08
+PASS [146000 ns] Flaga S | WE=1 IN=0x10 | out=0x10
+PASS [156000 ns] Flaga H | WE=1 IN=0x20 | out=0x20
+PASS [166000 ns] Flaga T | WE=1 IN=0x40 | out=0x40
+PASS [176000 ns] Flaga I | WE=1 IN=0x80 | out=0x80
+--- Test 5: Reset w trakcie ---
+PASS [186000 ns] Setup przed resetem | WE=1 IN=0xbe | out=0xbe
+PASS Reset mid-operation
+--- Test 6: Naprzemienne WE ---
+PASS [206000 ns] Zapis 0x12 | WE=1 IN=0x12 | out=0x12
+PASS [216000 ns] Hold | WE=0 IN=0x99 | out=0x12
+PASS [226000 ns] Zapis 0x34 | WE=1 IN=0x34 | out=0x34
+PASS [236000 ns] Hold | WE=0 IN=0xab | out=0x34
+PASS [246000 ns] Zapis 0x56 | WE=1 IN=0x56 | out=0x56
+=== TB SREG KONIEC === Błędy: 0 ===
+>>> WSZYSTKIE TESTY ZALICZONE <<<
+$finish called at time : 246 ns : File "C:/Users/kamil/OneDrive/Pulpit/CPU/Full_System/CPU.srcs/sim_1/new/tb_sreg.sv" Line 147
