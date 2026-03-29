@@ -1,0 +1,10 @@
+Cel - procesor mimikujący architekturę AVR:
+-architektura 8-bit 
+-zestaw instrukcji AVR (RISC)
+-architektura harwardzka - oddzielne busy dla pamięci Flash i operacyjnej
+-zmapowana pamięć 32rejestry 64 in/out, 2k SRAM, 32k Flash
+-dodać porty I/O dostepne z płytki, 
+-dodać piny na interrupty 
+-pre fetchowanie instrukcji 
+-magistrala danych
+-wskaźnik stosu

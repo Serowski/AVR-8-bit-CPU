@@ -1,0 +1,18 @@
+Vivado Simulator v2025.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:/AMDDesignTools/2025.2/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_alu_behav xil_defaultlib.tb_alu xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "C:/Users/kamil/OneDrive/Pulpit/CPU/CPU/CPU.srcs/sources_1/new/avr_pkg.sv" Line 1. Module avr_pkg doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/kamil/OneDrive/Pulpit/CPU/CPU/CPU.srcs/sources_1/new/alu.sv:11]
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.avr_pkg
+Compiling module xil_defaultlib.alu
+Compiling module xil_defaultlib.tb_alu
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_alu_behav
