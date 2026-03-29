@@ -1,0 +1,82 @@
+# ==============================================================================
+# Vivado / Xilinx generated files
+# ==============================================================================
+
+# Vivado cache and generated output
+*.cache/
+*.gen/
+*.hw/
+*.ip_user_files/
+*.sim/
+
+# Vivado runs directory (synthesis & implementation results)
+*.runs/
+
+# Vivado log and journal files
+*.log
+*.jou
+
+# Vivado backup files
+*.backup.log
+*.backup.jou
+
+# Vivado checkpoint files
+*.dcp
+
+# Vivado project database files (auto-generated from .xpr)
+*.xpr.bak
+
+# Vivado reports
+*.rpt
+*.xml
+
+# Bitstream and memory files (generated artifacts)
+*.bit
+*.bin
+*.mcs
+*.prm
+
+# Waveform configuration files (optional – comment out if you want to track these)
+*.wcfg
+
+# ==============================================================================
+# Simulation files
+# ==============================================================================
+
+# ModelSim / QuestaSim
+*.wlf
+work/
+transcript
+
+# XSIM
+*.pb
+*.wdb
+xsim.dir/
+
+# ==============================================================================
+# Synthesis / implementation intermediate files
+# ==============================================================================
+
+*.xsa
+*.hwh
+*.ltx
+*.mem
+
+# ==============================================================================
+# OS and editor junk
+# ==============================================================================
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# VSCode
+.vscode/
+
+# Vim
+*.swp
+*.swo
+
+# MacOS (just in case)
+.DS_Store
