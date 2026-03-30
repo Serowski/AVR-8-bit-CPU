@@ -7,3 +7,53 @@ i jeden port odczytu z którego będzie korzystał control unit (ale to potem na
 dodaj tylko jeden port odczytu a będziemy go programować inaczej).
 RAM ma mieć porty zapisu i odczytu i on już ma być szerokości 8-bit tak jak w AVR.
 No i oby dwie te pamięci mają być synchroniczne czyli zapisywać tylko na zboczu zegara.
+
+
+Instrukcje  ALU zaimplementowane 6-bitowe:
+ADD
+ADC
+SUB
+SBC
+AND
+OR
+EOR
+INC
+DEC
+CLR
+SER
+PASS
+Jeszcze nie dodane do ALU:
+COM
+NEG
+LSR
+ASR
+ROR
+
+Ogólne 16-bit opcode:
+- artmetyczno logiczne
+ADD
+ADC
+SUB
+SBC
+AND
+OR
+EOR
+COM
+NEG
+INC
+DEC
+-przesunięcia
+LSR
+ASR
+ROR
+-operacje na danych
+MOV
+LDI
+LDS
+STS
+-skoki i rozgałęzienia
+RJMP
+JMP
+BREQ
+BRNE
+NOP
