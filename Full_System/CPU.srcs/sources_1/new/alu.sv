@@ -50,6 +50,9 @@ module alu(
             ALU_SER: begin
                 f_Res[7:0] = 8'hFF;               
             end
+            ALU_PASS: begin
+                f_Res[7:0] = i_Rr;               
+            end
             default: f_Res[7:0] = '0;
         endcase
         

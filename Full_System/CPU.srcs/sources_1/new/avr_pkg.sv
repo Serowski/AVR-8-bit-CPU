@@ -12,6 +12,12 @@ package avr_pkg;
     parameter int ALU_DEC = 8;
     parameter int ALU_CLR = 9;
     parameter int ALU_SER = 10;
+    parameter int ALU_PASS = 11;
+    parameter int ALU_COM = 12;
+    parameter int ALU_NEG = 13;
+    parameter int ALU_LSR = 14;
+    parameter int ALU_ASR = 15;
+    parameter int ALU_ROR = 16;
 
     
     // Flagi
