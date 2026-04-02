@@ -28,7 +28,7 @@ module reg_file#(
             regs[i] = '0;
         end
     end
-    
+    //
     // Asynchroniczny odczyt
     always_comb begin
         assign o_rd_data1 = regs[i_rd_addr1];

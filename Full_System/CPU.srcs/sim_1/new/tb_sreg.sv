@@ -3,7 +3,7 @@
 `timescale 1ns / 1ps
 
 module tb_sreg;
-    
+   // 
     logic       clk;
     logic       rst_n;
     logic       sreg_we;
