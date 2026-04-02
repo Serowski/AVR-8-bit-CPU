@@ -2,7 +2,7 @@
 
 
 module tb_reg_file();
-    //
+    
     localparam int ADDR_WIDTH = 5;
     localparam int D_WIDTH = 8;
     logic aclk;    

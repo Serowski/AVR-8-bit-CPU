@@ -7,7 +7,7 @@ module sreg(
     input [7:0] i_flags,
     output logic [7:0] o_flags 
     );
-    //
+    
     always_ff @(posedge i_clk or negedge i_rst_n) begin
         if(!i_rst_n)
             o_flags <= 8'h00;

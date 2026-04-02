@@ -8,7 +8,7 @@ module program_counter(
     input i_inc,
     output logic [15:0] o_pc
     );
-    //
+    
     always_ff @(posedge i_clk or negedge i_rst_n) begin
         if(!i_rst_n)
             o_pc <= 16'h0000;

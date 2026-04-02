@@ -1,5 +1,5 @@
 package avr_pkg;
-    //
+    
     // Operacje dla ALU
     parameter int ALU_ADD = 0;
     parameter int ALU_ADC = 1;
