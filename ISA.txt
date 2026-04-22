@@ -1,0 +1,54 @@
+Opcody instrukcji:
+
+ADD Rd, Rr
+0000 11rd dddd rrrr
+PC + 1
+
+ADC Rd, Rr
+0001 11rd dddd rrrr
+PC + 1
+
+SUB Rd, Rr
+0001 10rd dddd rrrr
+PC + 1
+
+SBC Rd, Rr
+0000 10rd dddd rrrr
+PC + 1
+
+AND Rd, Rr
+0010 00rd dddd rrrr
+PC + 1
+
+OR Rd, Rr
+0010 10rd dddd rrrr
+PC + 1
+
+EOR Rd, Rr
+0010 01rd dddd rrrr
+PC + 1
+
+INC Rd
+1001 010d dddd 0011
+PC + 1
+
+DEC Rd
+1001 010d dddd 1010
+PC + 1
+
+CLR Rd
+0010 01dd dddd dddd
+PC + 1
+
+SER Rd
+1110 1111 dddd 1111
+PC + 1
+
+COM Rd
+1001 010d dddd 0000
+PC + 1
+
+NEG Rd (0x00 - Rd)
+1011 010d dddd 0001
+PC + 1
+

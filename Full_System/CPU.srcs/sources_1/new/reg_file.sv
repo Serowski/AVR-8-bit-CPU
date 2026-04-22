@@ -31,8 +31,8 @@ module reg_file#(
     //
     // Asynchroniczny odczyt
     always_comb begin
-        assign o_rd_data1 = regs[i_rd_addr1];
-        assign o_rd_data2 = regs[i_rd_addr2];
+        o_rd_data1 = regs[i_rd_addr1];
+        o_rd_data2 = regs[i_rd_addr2];
     end
     
     // Synchroniczny zapis

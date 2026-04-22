@@ -4,7 +4,7 @@ module alu(
     input       i_C_in,
     input  [5:0] i_alu_op,
     output logic [7:0] o_Res,  
-    output logic [5:0] o_Flag  
+    output logic [7:0] o_Flag  
 );
     import avr_pkg::*;
     
@@ -13,7 +13,8 @@ module alu(
     always_comb begin
         
         o_Res = 8'h00;
-        o_Flag = 6'b000000;
+        o_Flag = 8'h00;
+        f_Res = '0;
         
         case(i_alu_op)
             ALU_ADD: begin
@@ -45,7 +46,7 @@ module alu(
                 f_Res[7:0] = i_Rd - 8'h01;            
             end
             ALU_CLR: begin
-                f_Res[7:0] = 8'h00;              
+                f_Res[7:0] = i_Rd ^ i_Rd;              
             end
             ALU_SER: begin
                 f_Res[7:0] = 8'hFF;               
