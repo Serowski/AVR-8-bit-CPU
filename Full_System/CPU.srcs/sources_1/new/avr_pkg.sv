@@ -70,5 +70,8 @@ package avr_pkg;
     parameter int ALU_ZERO = 2'b10;
     parameter int ALU_ONE = 2'b11;
     
+    // Typy instrukcji:
+    parameter int ITYPE_NOP = 6'd0;
+    parameter int ITYPE_ADD = 6'd1;
     
 endpackage : avr_pkg

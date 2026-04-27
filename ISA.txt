@@ -1,5 +1,7 @@
 Opcody instrukcji:
 
+============Artmetyczno logiczne dla ALU:=================
+
 ADD Rd, Rr
 0000 11rd dddd rrrr
 PC + 1
@@ -44,11 +46,59 @@ SER Rd
 1110 1111 dddd 1111
 PC + 1
 
+// jeszcze nie ma
 COM Rd
 1001 010d dddd 0000
 PC + 1
 
 NEG Rd (0x00 - Rd)
 1011 010d dddd 0001
+PC + 1
+//
+
+
+==========Transfer danych============
+
+MOV Rd, Rr
+0010 11rd dddd rrrr
+PC + 1
+
+LDI Rd, K
+1110 KKKK dddd KKKK
+PC + 1
+
+LDS Rd, k
+1101 000d dddd 0000
+kkkk kkkk kkkk kkkk
+PC + 2
+
+STS k, Rr
+1001 001d dddd 0000
+kkkk kkkk kkkk kkkk
+PC + 2
+
+============Skoki i rozgałęzienia=========
+
+RJMP k ; k-2K <= k < 2K
+1100 kkkk kkkk kkkk
+PC + k + 1
+
+BREQ k ; -64<= k <= 63
+1111 00kk kkkk k001
+PC + k + 1
+PC + 1, if false
+
+BRNE k ; -64<= k <= 63
+1111 01kk kkkk k001
+PC + k + 1
+PC + 1, if false
+
+JMP k
+1001 010k kkkk 110k
+kkkk kkkk kkkk kkkk
+PC <- k
+
+NOP
+0000 0000 0000 0000
 PC + 1
 
