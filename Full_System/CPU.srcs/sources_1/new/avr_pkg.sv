@@ -1,23 +1,23 @@
 package avr_pkg;
     //
     // Operacje dla ALU
-    parameter int ALU_ADD = 0;
-    parameter int ALU_ADC = 1;
-    parameter int ALU_SUB = 2;
-    parameter int ALU_SBC = 3;
-    parameter int ALU_AND = 4;
-    parameter int ALU_OR = 5;
-    parameter int ALU_EOR = 6;
-    parameter int ALU_INC = 7;
-    parameter int ALU_DEC = 8;
-    parameter int ALU_CLR = 9;
-    parameter int ALU_SER = 10;
-    parameter int ALU_PASS = 11;
-    parameter int ALU_COM = 12;
-    parameter int ALU_NEG = 13;
-    parameter int ALU_LSR = 14;
-    parameter int ALU_ASR = 15;
-    parameter int ALU_ROR = 16;
+    parameter int ALU_ADD =  5'd0;
+    parameter int ALU_ADC =  5'd1;
+    parameter int ALU_SUB =  5'd2;
+    parameter int ALU_SBC =  5'd3;
+    parameter int ALU_AND =  5'd4;
+    parameter int ALU_OR =   5'd5;
+    parameter int ALU_EOR =  5'd6;
+    parameter int ALU_INC =  5'd7;
+    parameter int ALU_DEC =  5'd8;
+    parameter int ALU_CLR =  5'd9;
+    parameter int ALU_SER =  5'd10;
+    parameter int ALU_PASS = 5'd11;
+    parameter int ALU_COM =  5'd12;
+    parameter int ALU_NEG =  5'd13;
+    parameter int ALU_LSR =  5'd14;
+    parameter int ALU_ASR =  5'd15;
+    parameter int ALU_ROR =  5'd16;
 
     
     // Flagi    I - T - H - S - V - N - Z - C 
@@ -65,13 +65,38 @@ package avr_pkg;
     parameter int R31 = 5'd31;
     
     // ALU Mux do wejścia Rr
-    parameter int ALU_REG = 2'b00;
-    parameter int ALU_IMM = 2'b01;
+    parameter int ALU_REG =  2'b00;
+    parameter int ALU_IMM =  2'b01;
     parameter int ALU_ZERO = 2'b10;
-    parameter int ALU_ONE = 2'b11;
+    parameter int ALU_ONE =  2'b11;
     
     // Typy instrukcji:
-    parameter int ITYPE_NOP = 6'd0;
-    parameter int ITYPE_ADD = 6'd1;
+    parameter int ITYPE_NOP =  6'd0;
+    parameter int ITYPE_ADD =  6'd1;
+    parameter int ITYPE_ADC =  6'd2;
+    parameter int ITYPE_SUB =  6'd3;
+    parameter int ITYPE_SBC =  6'd4;
+    parameter int ITYPE_AND =  6'd5;
+    parameter int ITYPE_OR =   6'd6;
+    parameter int ITYPE_EOR =  6'd7;
+    parameter int ITYPE_INC =  6'd8;
+    parameter int ITYPE_DEC =  6'd9;
+    parameter int ITYPE_CLR =  6'd10;
+    parameter int ITYPE_SER =  6'd11;
+    parameter int ITYPE_MOV =  6'd12;
+    parameter int ITYPE_LDI =  6'd13;
+    parameter int ITYPE_LDS =  6'd14;
+    parameter int ITYPE_STS =  6'd15;
+    parameter int ITYPE_RJMP = 6'd16;
+    parameter int ITYPE_BREQ = 6'd17;
+    parameter int ITYPE_BRNE = 6'd18;
+    parameter int ITYPE_JMP =  6'd19;
+    
+    // Wybór wejścia PC - wewnętrzny mux
+    parameter int PC_INC =      2'b00;
+    parameter int PC_OFFSET =   2'b01;
+    parameter int PC_ABS_ADDR = 2'b10;
+    parameter int PC_ZERO =     2'b11;
+    
     
 endpackage : avr_pkg

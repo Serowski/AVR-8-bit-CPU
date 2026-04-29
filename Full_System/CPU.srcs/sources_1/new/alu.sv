@@ -2,7 +2,7 @@ module alu(
     input [7:0] i_Rd,       
     input [7:0] i_Rr,
     input       i_C_in,
-    input  [5:0] i_alu_op,
+    input  [4:0] i_alu_op,
     output logic [7:0] o_Res,  
     output logic [7:0] o_Flag  
 );

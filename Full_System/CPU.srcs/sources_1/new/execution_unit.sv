@@ -13,14 +13,13 @@ module execution_unit(
     input [7:0] i_imm,
     input [1:0] i_sel_alu,
     // Sygnały ALU
-    input [5:0] i_alu_op,
+    input [4:0] i_alu_op,
     input i_C_in,
     // Sygnały SREG
     input i_sreg_we,
     // Sygnały program counter
-    input i_load,
+    input [1:0] i_ctr_pc,
     input [15:0] i_load_val,
-    input i_inc,
     //Wyjścia
     output logic [7:0] o_data,
     output logic [7:0] o_Flag,
@@ -81,7 +80,7 @@ module execution_unit(
     program_counter eu_program_counter(
         .i_clk(i_clk),
         .i_rst_n(i_rst_n),
-        .i_load(i_load),
+        .i_ctr_pc(i_ctr_pc),
         .i_load_val(i_load_val),
         .i_inc(i_inc),
         .o_pc(o_pc)
