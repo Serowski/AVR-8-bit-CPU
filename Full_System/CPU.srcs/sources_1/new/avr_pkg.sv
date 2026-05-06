@@ -81,16 +81,14 @@ package avr_pkg;
     parameter int ITYPE_EOR =  6'd7;
     parameter int ITYPE_INC =  6'd8;
     parameter int ITYPE_DEC =  6'd9;
-    parameter int ITYPE_CLR =  6'd10;
-    parameter int ITYPE_SER =  6'd11;
-    parameter int ITYPE_MOV =  6'd12;
-    parameter int ITYPE_LDI =  6'd13;
-    parameter int ITYPE_LDS =  6'd14;
-    parameter int ITYPE_STS =  6'd15;
-    parameter int ITYPE_RJMP = 6'd16;
-    parameter int ITYPE_BREQ = 6'd17;
-    parameter int ITYPE_BRNE = 6'd18;
-    parameter int ITYPE_JMP =  6'd19;
+    parameter int ITYPE_MOV =  6'd10;
+    parameter int ITYPE_LDI =  6'd11;
+    parameter int ITYPE_LDS =  6'd12;
+    parameter int ITYPE_STS =  6'd13;
+    parameter int ITYPE_RJMP = 6'd14;
+    parameter int ITYPE_BREQ = 6'd15;
+    parameter int ITYPE_BRNE = 6'd16;
+    parameter int ITYPE_JMP =  6'd17;
     
     // Wybór wejścia PC - wewnętrzny mux
     parameter int PC_INC =      2'b00;

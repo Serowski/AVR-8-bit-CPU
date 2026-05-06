@@ -82,7 +82,6 @@ module execution_unit(
         .i_rst_n(i_rst_n),
         .i_ctr_pc(i_ctr_pc),
         .i_load_val(i_load_val),
-        .i_inc(i_inc),
         .o_pc(o_pc)
     );
     
