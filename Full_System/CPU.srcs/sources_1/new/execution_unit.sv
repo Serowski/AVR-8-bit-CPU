@@ -20,6 +20,8 @@ module execution_unit(
     // Sygnały program counter
     input [1:0] i_ctr_pc,
     input [15:0] i_load_val,
+    //Dane z pamięci danych
+    input [7:0] i_RAM,
     //Wyjścia
     output logic [7:0] o_data,
     output logic [7:0] o_Flag,
@@ -40,7 +42,7 @@ module execution_unit(
         unique case (i_sel_alu)
             2'b00: alu_input_sel = rd_data2;  
             2'b01: alu_input_sel = i_imm;
-            2'b10: alu_input_sel = 8'h00;
+            2'b10: alu_input_sel = i_RAM;
             2'b11: alu_input_sel = 8'h01;
         endcase
     end

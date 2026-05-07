@@ -67,7 +67,7 @@ package avr_pkg;
     // ALU Mux do wejścia Rr
     parameter int ALU_REG =  2'b00;
     parameter int ALU_IMM =  2'b01;
-    parameter int ALU_ZERO = 2'b10;
+    parameter int ALU_RAM = 2'b10;
     parameter int ALU_ONE =  2'b11;
     
     // Typy instrukcji:
@@ -96,5 +96,10 @@ package avr_pkg;
     parameter int PC_ABS_ADDR = 2'b10;
     parameter int PC_ZERO =     2'b11;
     
+    // Stany FSM
+    parameter int ST_FETCH =   2'b00;
+    parameter int ST_DECODE =  2'b01;
+    parameter int ST_EXECUTE = 2'b11;
+    parameter int ST_MEM =     2'b10;
     
 endpackage : avr_pkg
