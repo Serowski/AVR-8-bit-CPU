@@ -3,6 +3,7 @@
 module instruction_decoder(
     input [15:0] i_instr,
     
+    // Wartości wyczytane z intrukcji
     output logic [5:0] o_itype,
     output logic [4:0] o_rd_addr,
     output logic [4:0] o_rr_addr,
@@ -75,6 +76,18 @@ module instruction_decoder(
                 o_rr_addr = '0;
                 o_alu_op = ALU_DEC;
             end
+            //COM
+            16'b1001_010z_zzzz_0000: begin
+                o_itype = ITYPE_COM; 
+                o_rr_addr = '0;
+                o_alu_op = ALU_COM;
+            end
+            //NEG
+            16'b1001_010z_zzzz_0001: begin
+                o_itype = ITYPE_NEG; 
+                o_rr_addr = '0;
+                o_alu_op = ALU_NEG;
+            end
             //MOV  
             16'b0010_11zz_zzzz_zzzz: begin
                 o_itype = ITYPE_MOV;
@@ -126,10 +139,37 @@ module instruction_decoder(
                 o_rr_addr = '0;
                 o_pc = {i_instr[8:4], i_instr[0]};
             end
+            //LSR
+            16'b1001_010z_zzzz_0110: begin
+                o_itype = ITYPE_LSR;
+                o_rr_addr = '0;
+                o_alu_op = ALU_LSR;
+            end
+            //ASR
+            16'b1001_010z_zzzz_0101: begin
+                o_itype = ITYPE_ASR;
+                o_rr_addr = '0;
+                o_alu_op = ALU_ASR;
+            end
+            //ROR
+            16'b1001_010z_zzzz_0111: begin
+                o_itype = ITYPE_ROR;
+                o_rr_addr = '0;
+                o_alu_op = ALU_ROR;
+            end
+            //LSL
+            16'b0000_11zz_zzzz_zzzz: begin
+                o_itype = ITYPE_LSL;
+                o_alu_op = ALU_LSL;
+            end
+            //ROL
+            16'b0001_11zz_zzzz_zzzz: begin
+                o_itype = ITYPE_ROL;
+                o_alu_op = ALU_ROL;
+            end
             
             default: o_itype = ITYPE_NOP;
         endcase
             
-         
     end
 endmodule

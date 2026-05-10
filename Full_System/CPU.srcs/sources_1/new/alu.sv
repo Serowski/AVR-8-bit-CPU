@@ -8,18 +8,19 @@ module alu(
 );
     import avr_pkg::*;
     
+    // Wewnętrzny rejestr na wynik operacji ALU
     logic [8:0] f_Res;
     
     always_comb begin
-        
+        // Wartości domyślne sygnałów
         o_Res = 8'h00;
         o_Flag = 8'h00;
         f_Res = '0;
         
+        // Wybór instrukcji ALU
         case(i_alu_op)
             ALU_ADD: begin
-                f_Res = {1'b0, i_Rd} + {1'b0, i_Rr};       
-                 
+                f_Res = {1'b0, i_Rd} + {1'b0, i_Rr};        
             end
             ALU_ADC: begin
                 f_Res = {1'b0, i_Rd} + {1'b0, i_Rr} + i_C_in;  
@@ -53,6 +54,32 @@ module alu(
             end
             ALU_PASS: begin
                 f_Res[7:0] = i_Rr;               
+            end
+            ALU_COM: begin
+                f_Res[7:0] = ~i_Rd;
+            end
+            ALU_NEG: begin
+                f_Res = 9'h000 - {1'b0, i_Rd};
+            end
+            ALU_LSR: begin
+                f_Res[7:0] = {1'b0, i_Rd[7:1]};
+                o_Flag[SREG_C] = i_Rd[0];
+            end
+            ALU_ASR: begin
+                f_Res[7:0] = {i_Rd[7], 1'b0, i_Rd[6:1]};
+                o_Flag[SREG_C] = i_Rd[0];
+            end
+            ALU_ROR: begin
+                f_Res[7:0] = {i_C_in, i_Rd[7:1]};
+                o_Flag[SREG_C] = i_Rd[0];
+            end
+            ALU_LSL: begin
+                f_Res[7:0] = {i_Rd[6:0], 1'b0};
+                o_Flag[SREG_C] = i_Rd[7];
+            end
+            ALU_ROL: begin
+                f_Res[7:0] = {i_Rd[6:0], i_C_in};
+                o_Flag[SREG_C] = i_Rd[7];
             end
             default: f_Res[7:0] = '0;
         endcase

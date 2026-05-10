@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 module reg_file#(
+    // Obecne wartości szerokości danych - useless ale nie zmieniam
     parameter int D_WIDTH = 8,
     parameter int ADDR_WIDTH = 5,
     parameter int REG_COUNT = 32
@@ -22,13 +23,13 @@ module reg_file#(
     // Deklaracja pamięci
     logic [D_WIDTH-1:0] regs [0:REG_COUNT-1];
     
-    // Inicjalizacja pamięci
+    // Inicjalizacja pamięci jako LUTRAM
     initial begin
         for(int i = 0; i < REG_COUNT; i++) begin
             regs[i] = '0;
         end
     end
-    //
+    
     // Asynchroniczny odczyt
     always_comb begin
         o_rd_data1 = regs[i_rd_addr1];

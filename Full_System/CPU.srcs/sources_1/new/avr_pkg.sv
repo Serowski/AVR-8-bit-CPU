@@ -1,5 +1,5 @@
 package avr_pkg;
-    //
+    
     // Operacje dla ALU
     parameter int ALU_ADD =  5'd0;
     parameter int ALU_ADC =  5'd1;
@@ -18,6 +18,8 @@ package avr_pkg;
     parameter int ALU_LSR =  5'd14;
     parameter int ALU_ASR =  5'd15;
     parameter int ALU_ROR =  5'd16;
+    parameter int ALU_LSL =  5'd17;
+    parameter int ALU_ROL =  5'd18;
 
     
     // Flagi    I - T - H - S - V - N - Z - C 
@@ -89,17 +91,25 @@ package avr_pkg;
     parameter int ITYPE_BREQ = 6'd15;
     parameter int ITYPE_BRNE = 6'd16;
     parameter int ITYPE_JMP =  6'd17;
+    parameter int ITYPE_COM =  6'd18;
+    parameter int ITYPE_NEG =  6'd19;
+    parameter int ITYPE_LSR =  6'd20;
+    parameter int ITYPE_ASR =  6'd21;
+    parameter int ITYPE_ROR =  6'd22;
+    parameter int ITYPE_LSL =  6'd23;
+    parameter int ITYPE_ROL =  6'd24;
     
-    // Wybór wejścia PC - wewnętrzny mux
-    parameter int PC_INC =      2'b00;
-    parameter int PC_OFFSET =   2'b01;
-    parameter int PC_ABS_ADDR = 2'b10;
-    parameter int PC_ZERO =     2'b11;
+    // Sterowanie PC — 2-bitowy MUX wewnątrz program_counter
+    // PC_HOLD = 2'b00 → bezpieczna wartość domyślna (PC bez zmian)
+    parameter int PC_HOLD     = 2'b00;  // PC nie zmienia się
+    parameter int PC_INC      = 2'b01;  // PC = PC + 1
+    parameter int PC_OFFSET   = 2'b10;  // PC = PC + signed(i_load_val)  ← RJMP, BREQ, BRNE
+    parameter int PC_ABS_ADDR = 2'b11;  // PC = i_load_val               ← JMP bezwzględny
     
     // Stany FSM
     parameter int ST_FETCH =   2'b00;
     parameter int ST_DECODE =  2'b01;
-    parameter int ST_EXECUTE = 2'b11;
-    parameter int ST_MEM =     2'b10;
+    parameter int ST_EXECUTE = 2'b10;
+    parameter int ST_MEM =     2'b11;
     
 endpackage : avr_pkg

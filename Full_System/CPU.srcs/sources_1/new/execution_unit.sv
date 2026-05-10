@@ -2,29 +2,29 @@
 
 module execution_unit(
     // Ogólne sygnały
-    input i_clk,
-    input i_rst_n,
+    input        i_clk,
+    input        i_rst_n,
     // Plik rejestrów
-    input i_wr_en,
-    input [4:0] i_wr_addr,
-    input [4:0] i_rd_addr1,
-    input [4:0] i_rd_addr2,
+    input        i_wr_en,
+    input [4:0]  i_wr_addr,
+    input [4:0]  i_rd_addr1,
+    input [4:0]  i_rd_addr2,
     // MUX do wyboru wejścia do alu
-    input [7:0] i_imm,
-    input [1:0] i_sel_alu,
+    input [7:0]  i_imm,
+    input [1:0]  i_sel_alu,
     // Sygnały ALU
-    input [4:0] i_alu_op,
-    input i_C_in,
+    input [4:0]  i_alu_op,
+    input        i_C_in,
     // Sygnały SREG
-    input i_sreg_we,
+    input        i_sreg_we,
     // Sygnały program counter
-    input [1:0] i_ctr_pc,
+    input [1:0]  i_ctr_pc,
     input [15:0] i_load_val,
-    //Dane z pamięci danych
-    input [7:0] i_RAM,
-    //Wyjścia
-    output logic [7:0] o_data,
-    output logic [7:0] o_Flag,
+    // Dane z pamięci danych
+    input [7:0]  i_RAM,
+    // Wyjścia
+    output logic [7:0]  o_data,
+    output logic [7:0]  o_Flag,
     output logic [15:0] o_pc
 );
     
@@ -38,6 +38,7 @@ module execution_unit(
     // MUX wejścia Rr do ALU
     logic [7:0] alu_input_sel;
     
+    // MUX do kontroli liczby wchodzącej do ALU
     always_comb begin
         unique case (i_sel_alu)
             2'b00: alu_input_sel = rd_data2;  
@@ -47,10 +48,12 @@ module execution_unit(
         endcase
     end
     
+    // Wyjście danych do RAM przez port Rd pliku rejestrów
     always_comb begin
         o_data = rd_data1;
     end
     
+    // Instancje modułów
     alu eu_alu(
         .i_Rd(rd_data1),
         .i_Rr(alu_input_sel),

@@ -165,7 +165,7 @@ module tb_execution_unit;
         wr_en    = 1'b0;
         sreg_we  = 1'b0;
         rd_addr1 = reg_addr; // czytaj rejestr przez port 2
-        sel_alu  = ALU_ZERO;    // MUX: rd_data2 → i_Rr
+        sel_alu  = ALU_REG;    // MUX: rd_data2 → i_Rr
         alu_op   = ALU_PASS; // ALU przepuszcza i_Rr = wartość rejestru
         @(negedge clk);      // poczekaj jeden cykl (sygnały stabilne)
         out_data  = o_data;  // zapamiętaj wynik (kombinacyjne wyjście ALU)

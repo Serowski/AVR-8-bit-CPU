@@ -89,3 +89,5 @@ cele_projektowe.txt
 ISA.txt
 AVR_Softcore_MDD.md
 pamieci.txt
+*tb_cpu_top.sv
+*tb_execution_unit.sv
