@@ -1,17 +1,17 @@
 `timescale 1ns / 1ps
 
 module control_unit(
-    input i_clk,
-    input i_rst_n,
+    input               i_clk,
+    input               i_rst_n,
     
     // Wejście instrukcji z ROM 
-    input [15:0] i_instr,
+    input [15:0]        i_instr,
     // Wejście z SREG
-    input [7:0] i_flags,
+    input [7:0]         i_flags,
     
     // Wyjścia na Execution Unit
-    output logic [4:0]  o_rd_addr1,   // adres Rd → EU.i_rd_addr1
-    output logic [4:0]  o_rr_addr,    // adres Rr → EU.i_rd_addr2
+    output logic [4:0]  o_rd_addr1,
+    output logic [4:0]  o_rr_addr,
     output logic [7:0]  o_imm,
     output logic [4:0]  o_alu_op,
     output logic [15:0] o_load_val,
@@ -75,7 +75,7 @@ module control_unit(
     
 
     // Rejestr zabezpieczający przed dryftem instrukcji:
-    // Podczas ST_EXECUTE ROM wystawia już nową instrukcję
+    // Podczas EXECUTE ROM wystawia już nową instrukcję
     // co powodowałby błędy
     
     logic [15:0] instr_reg;
@@ -85,6 +85,7 @@ module control_unit(
         end
     end
     
+    // MUX do zatrzaskiwania instrukcji tylko podczas stanu DECODE
     logic [15:0] instr_for_dec;
     assign instr_for_dec = decode_en ? i_instr : instr_reg;
     

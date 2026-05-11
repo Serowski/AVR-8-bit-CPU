@@ -158,6 +158,7 @@ module instruction_decoder(
                 o_alu_op = ALU_ROR;
             end
             //LSL
+            /*
             16'b0000_11zz_zzzz_zzzz: begin
                 o_itype = ITYPE_LSL;
                 o_alu_op = ALU_LSL;
@@ -167,7 +168,7 @@ module instruction_decoder(
                 o_itype = ITYPE_ROL;
                 o_alu_op = ALU_ROL;
             end
-            
+            */
             default: o_itype = ITYPE_NOP;
         endcase
             

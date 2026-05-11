@@ -3,29 +3,45 @@
 module cpu_top (
     input        i_clk,
     input        i_rst_n,
+    // UART
+    //input i_uart_data,
     // GPIO...
-    inout  [7:0] io_gpio
+    inout  [31:0] io_gpio
+    //output logic [5:0] o_leds
 );
     import avr_pkg::*;
-
-    // Sygnały wewnętrzne
-    wire [15:0] w_instr;        
-    wire [15:0] w_pc;           
-    wire [7:0]  w_flags;        
-    wire [7:0]  w_ram_rdata;    
-    wire [7:0]  w_eu_data;     
     
-    wire [4:0]  w_rd_addr1, w_rr_addr;
-    wire [4:0]  w_wr_addr;
-    wire        w_wr_en;
-    wire [1:0]  w_sel_alu;
-    wire [4:0]  w_alu_op;
-    wire        w_sreg_we;
-    wire [7:0]  w_imm;
-    wire [1:0]  w_ctr_pc;
-    wire [15:0] w_load_val;
-    wire        w_ram_we, w_ram_re;
+    // Sygnały wewnętrzne
+    logic [15:0] w_instr;        
+    logic [15:0] w_pc;           
+    logic [7:0]  w_flags;        
+    logic [7:0]  w_ram_rdata;    
+    logic [7:0]  w_eu_data;     
+    
+    logic [4:0]  w_rd_addr1, w_rr_addr;
+    logic [4:0]  w_wr_addr;
+    logic        w_wr_en;
+    logic [1:0]  w_sel_alu;
+    logic [4:0]  w_alu_op;
+    logic        w_sreg_we;
+    logic [7:0]  w_imm;
+    logic [1:0]  w_ctr_pc;
+    logic [15:0] w_load_val;
+    logic        w_ram_we, w_ram_re;
 
+/*
+    always_comb begin
+        o_leds = '0;
+        if(!i_rst_n) begin
+            o_leds[0] = 1'b1;
+            o_leds[3] = 1'b1;
+        end else begin
+            o_leds[1] = 1'b1;
+            o_leds[4] = 1'b1;
+        end
+    end
+  */  
+    
     program_memory u_program_memory (
         .i_clk        (i_clk),
         .i_pc_addr    (w_pc[11:0]),     
@@ -83,7 +99,8 @@ module cpu_top (
         .i_data  (w_eu_data),       
         .i_we    (w_ram_we),
         .i_re    (w_ram_re),
-        .o_rdata (w_ram_rdata)    
+        .o_rdata (w_ram_rdata),    
+        .io_gpio (io_gpio)
     );
 
 endmodule

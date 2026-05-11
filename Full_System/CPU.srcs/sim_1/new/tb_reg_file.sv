@@ -45,29 +45,25 @@ module tb_reg_file();
         i_rd_addr1 = 0;
         i_rd_addr2 = 0;
         
-        // Czekamy na pierwszy pełny cykl zegara, żeby wszystko się ustabilizowało
         #10;
-        i_rd_addr1 = 5'd16; // Sprawdzamy R16
-        i_rd_addr2 = 5'd17; // Sprawdzamy R17
+        i_rd_addr1 = 5'd16;
+        i_rd_addr2 = 5'd17; 
         #10;
 
-        // --- TEST 2: Zapis do rejestru R16 ---
         $display("\n--- TEST 2: Zapis wartości 0xAA do R16 ---");
-        // Dobra praktyka: sygnały sterujące zmieniamy na opadającym zboczu zegara,
-        // aby były stabilne, gdy przyjdzie zbocze rosnące (zapisujące).
+
         @(negedge aclk); 
         i_wr_en   = 1;
-        i_wr_addr = 5'd01;    // Zapisz do R16
-        i_wr_data = 8'hAA;    // Wartość do zapisania
+        i_wr_addr = 5'd01;    
+        i_wr_data = 8'hAA;    
         
-        @(negedge aclk); // Czekamy jeden cykl, zapis dokonał się na zboczu rosnącym w międzyczasie
-        i_wr_en   = 0;    // Wyłączamy zapis
+        @(negedge aclk); 
+        i_wr_en   = 0;   
         
-        // Odczyt R16 przez port 1 (dane powinny pojawić się "natychmiast" dzięki assign)
         i_rd_addr1 = 5'd01; 
         #10;
 
-        // --- TEST 3: Zapis do R17 i jednoczesny odczyt ---
+        
         $display("\n--- TEST 3: Zapis 0xBB do R17 i odczyt dwóch różnych rejestrów ---");
         @(negedge aclk);
         i_wr_en   = 1;
@@ -77,23 +73,22 @@ module tb_reg_file();
         @(negedge aclk);
         i_wr_en   = 0;
         
-        i_rd_addr1 = 5'd01; // Czytamy R16 na porcie 1 (powinno być AA)
-        i_rd_addr2 = 5'd17; // Czytamy R17 na porcie 2 (powinno być BB)
+        i_rd_addr1 = 5'd01; 
+        i_rd_addr2 = 5'd17;
         #10;
 
-        // --- TEST 4: Próba zapisu z wyłączonym Write Enable (Zabezpieczenie) ---
         $display("\n--- TEST 4: Próba zapisu do R16 z i_wr_en = 0 (nie powinno zmienić danych) ---");
         @(negedge aclk);
-        i_wr_en   = 0;         // ZAPIS WYŁĄCZONY!
+        i_wr_en   = 0;         
         i_wr_addr = 5'd01;
-        i_wr_data = 8'hFF;     // Próbujemy nadpisać AA na FF
+        i_wr_data = 8'hFF;  
         
         @(negedge aclk);
-        i_rd_addr1 = 5'd01;    // Sprawdzamy R16 (nadal powinno być AA!)
+        i_rd_addr1 = 5'd01; 
         #10;
 
         $display("\nKoniec symulacji!");
-        $finish; // Zakończenie pracy symulatora
+        $finish;
     end
     
 endmodule

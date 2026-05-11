@@ -234,7 +234,6 @@ module tb_instruction_decoder;
         instr = 16'hDDDD;   //
         #10;
         
-        // ---- Podsumowanie ----
         $display("=========================================");
         $display("  PASS: %0d  |  FAIL: %0d", pass_count, fail_count);
         $display("=========================================");

@@ -46,7 +46,6 @@ SER Rd
 1110 1111 dddd 1111
 PC + 1
 
-// jeszcze nie ma
 COM Rd
 1001 010d dddd 0000
 PC + 1
@@ -54,8 +53,19 @@ PC + 1
 NEG Rd (0x00 - Rd)
 1011 010d dddd 0001
 PC + 1
-//
 
+==========Rotacje=====================
+LSR Rd
+1001 010d dddd 0110
+PC+1
+
+ASR Rd
+1001 010d dddd 0101
+PC+1
+
+ROR Rd
+1001 010d dddd 0111
+PC+1
 
 ==========Transfer danych============
 
@@ -68,7 +78,7 @@ LDI Rd, K
 PC + 1
 
 LDS Rd, k
-1101 000d dddd 0000
+1001 000d dddd 0000
 kkkk kkkk kkkk kkkk
 PC + 2
 

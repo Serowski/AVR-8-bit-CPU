@@ -110,31 +110,33 @@ module fsm_sequencer(
                     ITYPE_AND, ITYPE_OR,
                     ITYPE_EOR, ITYPE_LSR,
                     ITYPE_ASR, ITYPE_ROR,
-                    ITYPE_LSL, ITYPE_ROL: begin
+                    ITYPE_LSL, ITYPE_ROL,
+                    ITYPE_COM, ITYPE_NEG,
+                    ITYPE_INC, ITYPE_DEC: begin
                         o_wr_en   = 1'b1;
                         o_wr_addr = i_rd_addr;
-                        o_sel_alu = ALU_REG[1:0];
+                        o_sel_alu = ALU_REG;
                         o_sreg_we = 1'b1;
                     end
-
+                    /*
                     ITYPE_INC, ITYPE_DEC: begin
                         o_wr_en   = 1'b1;
                         o_wr_addr = i_rd_addr;
                         o_sel_alu = ALU_REG[1:0];
                         o_sreg_we = 1'b1;
                     end
-
+                    */
                     ITYPE_LDI: begin
                         o_wr_en   = 1'b1;
                         o_wr_addr = i_rd_addr;
-                        o_sel_alu = ALU_IMM[1:0];
+                        o_sel_alu = ALU_IMM;
                         o_sreg_we = 1'b0;
                     end
 
                     ITYPE_MOV: begin
                         o_wr_en   = 1'b1;
                         o_wr_addr = i_rd_addr;
-                        o_sel_alu = ALU_REG[1:0];
+                        o_sel_alu = ALU_REG;
                         o_sreg_we = 1'b0;
                     end
 
@@ -187,7 +189,7 @@ module fsm_sequencer(
                         o_ram_re  = 1'b1;
                         o_wr_en   = 1'b1;
                         o_wr_addr = i_rd_addr;
-                        o_sel_alu = ALU_RAM[1:0];
+                        o_sel_alu = ALU_RAM;
                         o_sreg_we = 1'b0;
                     end
                     ITYPE_STS: begin

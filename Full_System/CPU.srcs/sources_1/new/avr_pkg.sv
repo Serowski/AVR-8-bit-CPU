@@ -99,12 +99,11 @@ package avr_pkg;
     parameter int ITYPE_LSL =  6'd23;
     parameter int ITYPE_ROL =  6'd24;
     
-    // Sterowanie PC — 2-bitowy MUX wewnątrz program_counter
-    // PC_HOLD = 2'b00 → bezpieczna wartość domyślna (PC bez zmian)
-    parameter int PC_HOLD     = 2'b00;  // PC nie zmienia się
-    parameter int PC_INC      = 2'b01;  // PC = PC + 1
-    parameter int PC_OFFSET   = 2'b10;  // PC = PC + signed(i_load_val)  ← RJMP, BREQ, BRNE
-    parameter int PC_ABS_ADDR = 2'b11;  // PC = i_load_val               ← JMP bezwzględny
+    // Sterowanie PC
+    parameter int PC_HOLD     = 2'b00;
+    parameter int PC_INC      = 2'b01;
+    parameter int PC_OFFSET   = 2'b10;
+    parameter int PC_ABS_ADDR = 2'b11;
     
     // Stany FSM
     parameter int ST_FETCH =   2'b00;
