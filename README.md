@@ -66,7 +66,7 @@ Both SRAM and Flash memories are implemented using Block RAM (BRAM) on the FPGA.
 
 ## Physical Mapping
 <p align="center">
-  <img src="./artyS7-50.png" alt="Arty S7-50 board" />
+  <img src="./ArtyS7-50.png" alt="Arty S7-50 board" />
 </p>
 <p align="center">
   <img src="./PMOD-connectors.png" alt="PMOD connectors on Arty S7-50 board" width="50%" />
