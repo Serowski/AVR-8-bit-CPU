@@ -81,14 +81,7 @@ $RECYCLE.BIN/
 # MacOS (just in case)
 .DS_Store
 
-cele_projektowe.txt
 CPU.xpr
 CPU.xpr.bak
-LICENSE
-cele_projektowe.txt
-ISA.txt
-AVR_Softcore_MDD.md
-pamieci.txt
 *tb_cpu_top.sv
 *tb_execution_unit.sv
-*old_data_mem.txt

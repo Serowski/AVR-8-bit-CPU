@@ -111,4 +111,30 @@ package avr_pkg;
     parameter int ST_EXECUTE = 2'b10;
     parameter int ST_MEM =     2'b11;
     
+    // Rejestry GPIO
+    parameter int PINB =  16'h0023;
+    parameter int DDRB =  16'h0024;
+    parameter int PORTB = 16'h0025;
+    parameter int PINC =  16'h0026;
+    parameter int DDRC =  16'h0027;
+    parameter int PORTC = 16'h0028;
+    parameter int PIND =  16'h0029;
+    parameter int DDRD =  16'h002A;
+    parameter int PORTD = 16'h002B;
+    parameter int PINE =  16'h002C;
+    parameter int DDRE =  16'h002D;
+    parameter int PORTE = 16'h002E;
+    
+    
+    // Stany UART
+    parameter int UART_IDLE = 3'd0;
+    parameter int UART_START_BIT = 3'd1;
+    parameter int UART_DATA_BITS = 3'd2;
+    parameter int UART_STOP_BIT = 3'd3;
+    parameter int UART_END = 3'd4;
+    // Parametry UART
+    parameter int MAIN_CLK = 12000000;
+    parameter int UART_BAUD = 9600;
+    parameter int UART_CLK_PER_BIT = MAIN_CLK / UART_BAUD;
+    
 endpackage : avr_pkg

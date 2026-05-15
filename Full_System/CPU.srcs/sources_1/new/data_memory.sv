@@ -14,7 +14,7 @@ module data_memory(
     // Piny GPIO
     inout [31:0] io_gpio
     );
-    
+    import avr_pkg::*;
     // SRAM o poojemności 4096 bajtów
     logic [7:0] sram [0:4095];
     logic [7:0] sram_rdata;
@@ -64,17 +64,17 @@ module data_memory(
             if (i_we) begin
                 case(i_addr)
                     // PORT B
-                    16'h0024: reg_ddrb  <= i_data;
-                    16'h0025: reg_portb <= i_data;
+                    DDRB:  reg_ddrb  <= i_data;
+                    PORTB: reg_portb <= i_data;
                     // PORT C
-                    16'h0027: reg_ddrc  <= i_data;
-                    16'h0028: reg_portc <= i_data;
+                    DDRC:  reg_ddrc  <= i_data;
+                    PORTC: reg_portc <= i_data;
                     // PORT D
-                    16'h002A: reg_ddrd  <= i_data;
-                    16'h002B: reg_portd <= i_data;
-                    // PORD E
-                    16'h002D: reg_ddre  <= i_data;
-                    16'h002E: reg_porte <= i_data;
+                    DDRD:  reg_ddrd  <= i_data;
+                    PORTD: reg_portd <= i_data;
+                    // PORT E
+                    DDRE:  reg_ddre  <= i_data;
+                    PORTE: reg_porte <= i_data;
                 endcase
             end
             
@@ -85,21 +85,21 @@ module data_memory(
                 
                 case(i_addr)
                     // PORT B
-                    16'h0023: io_rdata_reg <= pin_b;
-                    16'h0024: io_rdata_reg <= reg_ddrb;
-                    16'h0025: io_rdata_reg <= reg_portb;
+                    PINB:  io_rdata_reg <= pin_b;
+                    DDRB:  io_rdata_reg <= reg_ddrb;
+                    PORTB: io_rdata_reg <= reg_portb;
                     // PORT C
-                    16'h0026: io_rdata_reg <= pin_c;
-                    16'h0027: io_rdata_reg <= reg_ddrc;
-                    16'h0028: io_rdata_reg <= reg_portc;
+                    PINC:  io_rdata_reg <= pin_c;
+                    DDRC:  io_rdata_reg <= reg_ddrc;
+                    PORTC: io_rdata_reg <= reg_portc;
                     // PORT D
-                    16'h0029: io_rdata_reg <= pin_d;
-                    16'h002A: io_rdata_reg <= reg_ddrd;
-                    16'h002B: io_rdata_reg <= reg_portd;
+                    PIND:  io_rdata_reg <= pin_d;
+                    DDRD:  io_rdata_reg <= reg_ddrd;
+                    PORTD: io_rdata_reg <= reg_portd;
                     // PORT E
-                    16'h002C: io_rdata_reg <= pin_e;
-                    16'h002D: io_rdata_reg <= reg_ddre;
-                    16'h002E: io_rdata_reg <= reg_porte;
+                    PINE:  io_rdata_reg <= pin_e;
+                    DDRE:  io_rdata_reg <= reg_ddre;
+                    PORTE: io_rdata_reg <= reg_porte;
                     
                     default:  io_rdata_reg <= 8'h00;
                 endcase

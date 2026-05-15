@@ -1,18 +1,20 @@
 `timescale 1ns / 1ps
 
+
+
 module program_memory(
     input i_clk,
-    // PORT A - odczyt instrukcji dla 4096 słów
+    // PORT A - 4096 bytes of addressable words 
     input [11:0] i_pc_addr,
     output logic [15:0] o_instruction,
 
-    // PORT B - do zapisu przez UART - 8192 bajty
+    // PORT B - 8192 bytes to write to 
     input  logic [12:0] i_uart_addr,
     input  logic [7:0]  i_uart_data,
     input  logic        i_uart_we
 );
 
-    // Inicjalizacja BRAM
+    // BRAM memory inicialization
     logic [15:0] memory_array [0:4095];
 
     // Sygnały do sterowania zapisem z UART
