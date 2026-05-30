@@ -1,26 +1,26 @@
 `timescale 1ns / 1ps
 
 module execution_unit(
-    input        i_clk,
-    input        i_rst_n,
+    input               i_clk,
+    input               i_rst_n,
     // Register File controls
-    input        i_wr_en,
-    input [4:0]  i_wr_addr,
-    input [4:0]  i_rd_addr1,
-    input [4:0]  i_rd_addr2,
+    input               i_wr_en,
+    input [4:0]         i_wr_addr,
+    input [4:0]         i_rd_addr1,
+    input [4:0]         i_rd_addr2,
     // MUX going to ALU control
-    input [7:0]  i_imm,
-    input [1:0]  i_sel_alu,
+    input [7:0]         i_imm,
+    input [1:0]         i_sel_alu,
     // ALU control
-    input [4:0]  i_alu_op,
-    input        i_C_in,
+    input [4:0]         i_alu_op,
+    input               i_C_in,
     // SREG control
-    input        i_sreg_we,
+    input               i_sreg_we,
     // Program Counter control
-    input [1:0]  i_ctr_pc,
-    input [15:0] i_load_val,
+    input [1:0]         i_ctr_pc,
+    input [15:0]        i_load_val,
     // RAM data in
-    input [7:0]  i_RAM,
+    input [7:0]         i_RAM,
     // Outputs
     output logic [7:0]  o_data,
     output logic [7:0]  o_Flag,
