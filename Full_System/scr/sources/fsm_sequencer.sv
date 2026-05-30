@@ -1,46 +1,37 @@
 `timescale 1ns / 1ps
 
 module fsm_sequencer(
-    input i_clk,
-    input i_rst_n,
-    
-    // Wejścia z dekodera
-    input [5:0] i_itype,
-    input [4:0] i_rd_addr,
-    
-    // Wejscia z SREG
-    input [7:0] i_flags,
-    
-    // Wyjscia na register file
+    input              i_clk,
+    input              i_rst_n,
+    // Inputs from instruction decoder
+    input [5:0]        i_itype,
+    input [4:0]        i_rd_addr,
+    // Input flags from SREG
+    input [7:0]        i_flags,
+    // Register File controls
     output logic [4:0] o_wr_addr,
-    output logic o_wr_en,
-    
-    // Wyjscia na MUX do ALU
+    output logic       o_wr_en,
+    // Controls for MUX going to ALU
     output logic [1:0] o_sel_alu,
-     
-    // Wyjscia na SREG
-    output logic o_sreg_we,
-    
-    // Wyjscia na Program Counter
+    // SREG control
+    output logic       o_sreg_we,
+    // Program Counter controls
     output logic [1:0] o_ctr_pc,
-    output logic o_sel_id_rom,
-    
-    // Wyjscia na Data Memory
-    output logic o_ram_we,
-    output logic o_ram_re,
-    
-    // Sygnalizacja stanu
-    output logic o_decode_en
-    
+    output logic       o_sel_id_rom,
+    // Data Memory controls
+    output logic       o_ram_we,
+    output logic       o_ram_re,
+    // State signal
+    output logic       o_decode_en
     );
+    
     import avr_pkg::*;
     
-    // Rejestr na stan maszyny
+    // FSM state register
     logic [1:0] state;
     int next_state;
 
-    // itype_reg - rejestr na typ instrukcji zapisany podczas ST_DECODE
-    // Inaczej ROM wystawia już kolejną instrukcję w Execute i jest kiszka
+    // Register for instruction latched during DECODE
     logic [5:0] itype_reg;
     always_ff @(posedge i_clk or negedge i_rst_n) begin
         if (!i_rst_n)
@@ -49,7 +40,7 @@ module fsm_sequencer(
             itype_reg <= i_itype;  
     end
 
-    // Rejestr stanu
+    // FSM
     always_ff @(posedge i_clk or negedge i_rst_n) begin
         if(!i_rst_n) 
             state <= ST_FETCH;
@@ -57,7 +48,7 @@ module fsm_sequencer(
             state <= next_state;
     end
     
-    // Przejścia stanów
+    // FSM - state transitions
     always_comb begin
         next_state = ST_FETCH;
         unique case(state)
@@ -75,9 +66,9 @@ module fsm_sequencer(
         endcase
     end
     
-    // Generacja sygnałów sterujących
+    // Control signal generation
     always_comb begin
-        // Wartości domyślne - wszystko wyłączone
+        // Default values
         o_wr_addr    = 5'd0;
         o_wr_en      = 1'b0;
         o_sel_alu    = ALU_REG[1:0];
@@ -89,18 +80,17 @@ module fsm_sequencer(
         o_decode_en  = (state == ST_DECODE);
 
         unique case(state)
-
-            // ST_FETCH: ROM czyta PC i wystawia instrukcję pod tym adresem
+            // ST_FETCH: ROM reads PC and outputs instruction corresponding to the address
             ST_FETCH: begin
                 o_ctr_pc = PC_INC;
             end
 
-            // ST_DECODE: Czekamy aż ROM wystawi instrukcję do odczytania przez dekoder
+            // ST_DECODE: One cycle wait state for BRAM used in ROM to output the instruction
             ST_DECODE: begin
                 o_ctr_pc = PC_HOLD;
             end
 
-            // ST_EXECUTE: wykonuje instrukcję według ITYPE
+            // ST_EXECUTE: execute instruction according to ITYPE
             ST_EXECUTE: begin
                 o_ctr_pc = PC_HOLD;
 
@@ -181,7 +171,7 @@ module fsm_sequencer(
                 endcase
             end
 
-            // ST_MEM: dodatkowy stan na zapis/odczyt danych z RAM
+            // ST_MEM: additional state to read/write data from RAM
             ST_MEM: begin
                 o_ctr_pc = PC_HOLD;
                 case(itype_reg)
@@ -200,7 +190,7 @@ module fsm_sequencer(
             end
 
             default: begin
-                // bezpieczny powrót — domyślne wszystko jest 0
+                // safe return to default - everything 0
             end
         endcase
     end

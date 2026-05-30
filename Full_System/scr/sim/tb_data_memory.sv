@@ -11,7 +11,7 @@ module tb_data_memory();
     logic i_re;
     logic [7:0] o_rdata;
 
-    // Szyna dwukierunkowa
+    // bidirectional GPIO bus
     wire [31:0] io_gpio;
 
     logic [31:0] tb_gpio_drive;
@@ -62,9 +62,9 @@ module tb_data_memory();
             
             #1;
             if (o_rdata === expected)
-                $display("PASS: Odczyt z adresu %04X zwrocil poprawne %02X", t_addr, o_rdata);
+                $display("PASS: Read from addr %04X returned correct value %02X", t_addr, o_rdata);
             else
-                $error("FAIL: Oczekiwano %02X pod adresem %04X, ale otrzymano %02X", expected, t_addr, o_rdata);
+                $error("FAIL: Expected %02X at addr %04X, but got %02X", expected, t_addr, o_rdata);
         end
     endtask
 
@@ -77,18 +77,18 @@ module tb_data_memory();
         i_rst_n = 1; 
         #20;
 
-        $display("\n=== TEST 1: PORT B JAKO WYJŚCIE (OUTPUT) ===");
+        $display("\n=== TEST 1: PORT B AS OUTPUT ===");
 
         write_io(16'h0024, 8'hFF); 
         write_io(16'h0025, 8'hAA);
         #10;
         if (io_gpio[7:0] === 8'hAA) 
-            $display("PASS: Fizyczne piny PORT B maja stan 0xAA");
+            $display("PASS: Physical PORT B pins read 0xAA");
         else 
-            $error("FAIL: Fizyczne piny PORT B to %02X", io_gpio[7:0]);
+            $error("FAIL: Physical PORT B pins are %02X", io_gpio[7:0]);
 
 
-        $display("\n=== TEST 2: PORT C JAKO WEJŚCIE (INPUT) ===");
+        $display("\n=== TEST 2: PORT C AS INPUT ===");
         write_io(16'h0027, 8'h00); 
 
         tb_gpio_drive[15:8] = 8'h55; 
@@ -97,7 +97,7 @@ module tb_data_memory();
         
         read_check_io(16'h0026, 8'h55);
 
-        $display("\n=== TEST 3: PORT D MIESZANY (PÓŁ NA PÓŁ) ===");
+        $display("\n=== TEST 3: PORT D MIXED (HALF IN / HALF OUT) ===");
 
         write_io(16'h002A, 8'h0F); 
 
@@ -108,14 +108,14 @@ module tb_data_memory();
         #10;
 
         if (io_gpio[23:16] === 8'hBA) 
-            $display("PASS: Fizyczne piny PORT D poprawnie wymiksowaly I/O (0xBA)");
+            $display("PASS: Physical PORT D pins correctly mixed I/O (0xBA)");
         else 
-            $error("FAIL: Fizyczne piny PORT D to %02X", io_gpio[23:16]);
+            $error("FAIL: Physical PORT D pins are %02X", io_gpio[23:16]);
 
         read_check_io(16'h0029, 8'hBA);
 
 
-        $display("\n=== SYMULACJA ZAKONCZONA ===");
+        $display("\n=== SIMULATION FINISHED ===");
         $finish;
     end
 

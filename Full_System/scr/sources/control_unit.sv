@@ -3,51 +3,43 @@
 module control_unit(
     input               i_clk,
     input               i_rst_n,
-    
-    // Wejście instrukcji z ROM 
+    // ROM instruction input 
     input [15:0]        i_instr,
-    // Wejście z SREG
+    // Input flags from SREG
     input [7:0]         i_flags,
-    
-    // Wyjścia na Execution Unit
+    // Execution Unit controls
     output logic [4:0]  o_rd_addr1,
     output logic [4:0]  o_rr_addr,
     output logic [7:0]  o_imm,
     output logic [4:0]  o_alu_op,
     output logic [15:0] o_load_val,
-
-    // Wyjścia na register file
+    // Register File controls
     output logic [4:0]  o_wr_addr,
     output logic        o_wr_en,
-    
-    // Wyjścia na MUX do ALU
+    // Controls for MUX going to ALU
     output logic [1:0]  o_sel_alu,
-     
-    //Wyjścia na SREG
+    // SREG control
     output logic        o_sreg_we,
-    
-    //Wyjścia na Program Counter
+    // Program Counter controls
     output logic [1:0]  o_ctr_pc,
-    
-    //Wyjścia na Data Memory
+    // Data Memory controls
     output logic        o_ram_we,
     output logic        o_ram_re
     );
     
-    
     import avr_pkg::*;
     
-    // Wewnętrzne połączenia
+    // Internal connections
     logic [5:0]  itype;
     logic [4:0]  rd_addr;
     logic        sel_id_rom;
     logic [15:0] pc_val;       
-    // Sygnał z FSM że state == ST_DECODE
+    // FSM signal to latch instruction during ST_DECODE
     logic        decode_en;
     
     assign o_rd_addr1 = rd_addr;
     
-    // MUX do wyboru Offsetu / Wartości absolutnej PC
+    // MUX controlling PC value: Offset/Absolute Value
     always_comb begin
         case(sel_id_rom)
             1'b0: o_load_val = pc_val;
@@ -55,7 +47,7 @@ module control_unit(
         endcase
     end
     
-    // Instancje modułów
+    // Modules instances
     fsm_sequencer cu_fsm_sequencer(
         .i_clk(i_clk),
         .i_rst_n(i_rst_n),
@@ -72,12 +64,10 @@ module control_unit(
         .o_ram_re(o_ram_re),
         .o_decode_en(decode_en)
     );
-    
-
-    // Rejestr zabezpieczający przed dryftem instrukcji:
-    // Podczas EXECUTE ROM wystawia już nową instrukcję
-    // co powodowałby błędy
-    
+     
+    // Register to prevent instruction drift
+    // ROM generates new instruction during EXECUTE cycle
+    // It latches previous instruction
     logic [15:0] instr_reg;
     always_ff @(posedge i_clk) begin
         if (decode_en) begin
@@ -85,7 +75,7 @@ module control_unit(
         end
     end
     
-    // MUX do zatrzaskiwania instrukcji tylko podczas stanu DECODE
+    // MUX to latch instruction only during DECODE
     logic [15:0] instr_for_dec;
     assign instr_for_dec = decode_en ? i_instr : instr_reg;
     

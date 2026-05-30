@@ -1,23 +1,26 @@
 module alu(
-    input [7:0] i_Rd,       
-    input [7:0] i_Rr,
-    input       i_C_in,
+    // Register File inputs
+    input [7:0]  i_Rd,       
+    input [7:0]  i_Rr,
+    // Carry flag input
+    input        i_C_in,
+    // Select ALU operation
     input  [4:0] i_alu_op,
+    // Result and flags
     output logic [7:0] o_Res,  
     output logic [7:0] o_Flag  
 );
     import avr_pkg::*;
     
-    // Wewnętrzny rejestr na wynik operacji ALU
+    // Internal register for ALU operation results
     logic [8:0] f_Res;
     
     always_comb begin
-        // Wartości domyślne sygnałów
+        // Default values
         o_Res = 8'h00;
         o_Flag = 8'h00;
         f_Res = '0;
         
-        // Wybór instrukcji ALU
         case(i_alu_op)
             ALU_ADD: begin
                 f_Res = {1'b0, i_Rd} + {1'b0, i_Rr};        
@@ -84,10 +87,10 @@ module alu(
             default: f_Res[7:0] = '0;
         endcase
         
-        // Przepisanie wyniku 
+        // Result assign
         o_Res = f_Res[7:0];
         
-        // Flagi wspólne
+        // Shared flags
         o_Flag[SREG_Z] = (o_Res == 8'h00);
         o_Flag[SREG_N] = o_Res[7];
         o_Flag[SREG_C] = o_Flag[SREG_C] | f_Res[8];

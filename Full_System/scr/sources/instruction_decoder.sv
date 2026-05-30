@@ -3,19 +3,19 @@
 module instruction_decoder(
     input [15:0] i_instr,
     
-    // Wartości wyczytane z intrukcji
-    output logic [5:0] o_itype,
-    output logic [4:0] o_rd_addr,
-    output logic [4:0] o_rr_addr,
-    output logic [7:0] o_imm,
-    output logic [4:0] o_alu_op,
+    // Values read from instruction
+    output logic [5:0]  o_itype,
+    output logic [4:0]  o_rd_addr,
+    output logic [4:0]  o_rr_addr,
+    output logic [7:0]  o_imm,
+    output logic [4:0]  o_alu_op,
     output logic [15:0] o_pc
     );
     
     import avr_pkg::*;
     
     always_comb begin
-        // Domyślne wartości
+        // Default values
         o_itype = ITYPE_NOP;
         o_rd_addr = i_instr[8:4];
         o_rr_addr = {i_instr[9], i_instr[3:0]};

@@ -1,51 +1,48 @@
 `timescale 1ns / 1ps
 
-
-
 module program_memory(
-    input i_clk,
+    input               i_clk,
     // PORT A - 4096 bytes of addressable words 
-    input [11:0] i_pc_addr,
+    input [11:0]        i_pc_addr,
     output logic [15:0] o_instruction,
-
     // PORT B - 8192 bytes to write to 
     input  logic [12:0] i_uart_addr,
     input  logic [7:0]  i_uart_data,
     input  logic        i_uart_we
 );
 
-    // BRAM memory inicialization
+    // BRAM memory initialization
     logic [15:0] memory_array [0:4095];
 
-    // Sygnały do sterowania zapisem z UART
+    // UART write control signals
     logic [11:0] word_addr;
     logic        byte_select;
 
-    // 12 górnych bitów to adres 16-bitowego słowa w pamięci
-    // 1 najmłodszy bit (LSB) mówi nam, czy to lewa czy prawa połówka (bajt)
+    // Bits [12:1] - address of 16-bit word in memory 
+    // Bit  [0]    - low or high part a the 16-bit word
     assign word_addr   = i_uart_addr[12:1];
     assign byte_select = i_uart_addr[0];
     
-    // Synchroniczny zapis i odczyt z ROM
+    // Synchronous read/write from ROM
     always_ff @(posedge i_clk) begin
-        // PORT B: Zapis z UART 
+        // PORT B: Write bytes from UART 
         if (i_uart_we) begin
             if (byte_select == 1'b0) begin
-                // Zapis młodszego bajtu
+                // Low byte write
                 memory_array[word_addr][7:0] <= i_uart_data;
             end else begin
-                // Zapis starszego bajtu
+                // High byte write
                 memory_array[word_addr][15:8] <= i_uart_data;
             end
         end
-        // PORT A: Odczyt instrukcji 
+        // PORT A: Read instruction 
         o_instruction <= memory_array[i_pc_addr];
         
     end
 
-    // Inicjalizacja pamięci plikiem .mem
+    // Possible to initialize ROM memory from .mem file
     initial begin
-        // $readmemh("moj_program.mem", memory_array);
+        // $readmemh("xxx.mem", memory_array);
     end
 
 endmodule

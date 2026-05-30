@@ -6,14 +6,14 @@ module cpu_top (
     // UART
     input              i_Rx_data,
     output logic       o_Tx_data,
-    // GPIO...
+    // GPIO pins
     inout [31:0]       io_gpio,
-    // LEDy
+    // Status LEDs
     output logic [5:0] o_leds
 );
     import avr_pkg::*;
     
-    // Sygnały wewnętrzne
+    // Internal connections
     logic [15:0] w_instr;        
     logic [15:0] w_pc;           
     logic [7:0]  w_flags;        
@@ -35,6 +35,9 @@ module cpu_top (
     logic [12:0] w_uart_addr;
     logic        w_uart_we;
 
+    // Status LEDS:
+    // St. Green - Regular Mode
+    // St. Red   - Programming Mode
     always_comb begin
         o_leds = '0;
         if(!i_rst_n) begin
@@ -54,12 +57,11 @@ module cpu_top (
         end
     end
     
-    
+    // Modules instances
     program_memory u_program_memory (
         .i_clk        (i_clk),
         .i_pc_addr    (w_pc[11:0]),     
         .o_instruction(w_instr),
-        // PORT B  UART bootloader
         .i_uart_addr  (w_uart_addr),
         .i_uart_data  (w_uart_data),
         .i_uart_we    (w_uart_we)
@@ -117,12 +119,12 @@ module cpu_top (
     );
     
     UART_top u_UART_top (
-        .i_clk(i_clk),
-        .i_rst(i_rst_n),
-        .i_Rx_data(i_Rx_data),
-        .o_uart_data(w_uart_data),
-        .o_uart_addr(w_uart_addr),
-        .o_uart_we(w_uart_we),
-        .o_Tx_data(o_Tx_data)
+        .i_clk       (i_clk),
+        .i_rst       (i_rst_n),
+        .i_Rx_data   (i_Rx_data),
+        .o_uart_data (w_uart_data),
+        .o_uart_addr (w_uart_addr),
+        .o_uart_we   (w_uart_we),
+        .o_Tx_data   (o_Tx_data)
     );
 endmodule

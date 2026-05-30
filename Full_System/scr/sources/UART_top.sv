@@ -1,17 +1,18 @@
 `timescale 1ns / 1ps
 
 module UART_top(
-    input i_clk,
-    input i_rst,
-    input i_Rx_data,
-    
-    output logic [7:0] o_uart_data,
+    input               i_clk,
+    input               i_rst,
+    // Input serial data
+    input               i_Rx_data,
+    // Output pararrel data and address
+    output logic [7:0]  o_uart_data,
     output logic [12:0] o_uart_addr,
-    output logic o_uart_we,
-    output logic o_Tx_data
+    output logic        o_uart_we,
+    output logic        o_Tx_data
     );
     
-    // Połączenia wewnętrzne
+    // Internal connections
     logic r_uart_we;
     logic [7:0] r_data;
     
@@ -20,7 +21,7 @@ module UART_top(
         o_uart_we   = r_uart_we;
     end
     
-    // Instancje modułów
+    // Module instances
     UART_Rx u_UART_Rx(
         .i_clk(i_clk),
         .i_rst(i_rst),

@@ -2,17 +2,17 @@
 
 
 module tb_reg_file();
-    //
+
     localparam int ADDR_WIDTH = 5;
     localparam int D_WIDTH = 8;
     logic aclk;    
-    // Dwa porty do odczytu
+    // two read ports
     logic [ADDR_WIDTH-1:0] i_rd_addr1;
     logic [ADDR_WIDTH-1:0] i_rd_addr2;
     logic [D_WIDTH-1:0] o_rd_data1;
     logic [D_WIDTH-1:0] o_rd_data2;
         
-    //Jeden port do zapisu
+    // single write port
     logic i_wr_en;
     logic [ADDR_WIDTH-1:0] i_wr_addr;
     logic [D_WIDTH-1:0] i_wr_data;
@@ -50,7 +50,7 @@ module tb_reg_file();
         i_rd_addr2 = 5'd17; 
         #10;
 
-        $display("\n--- TEST 2: Zapis wartości 0xAA do R16 ---");
+        $display("\n--- TEST 2: Write 0xAA to R16 ---");
 
         @(negedge aclk); 
         i_wr_en   = 1;
@@ -64,7 +64,7 @@ module tb_reg_file();
         #10;
 
         
-        $display("\n--- TEST 3: Zapis 0xBB do R17 i odczyt dwóch różnych rejestrów ---");
+        $display("\n--- TEST 3: Write 0xBB to R17 and read two different registers ---");
         @(negedge aclk);
         i_wr_en   = 1;
         i_wr_addr = 5'd17;
@@ -77,7 +77,7 @@ module tb_reg_file();
         i_rd_addr2 = 5'd17;
         #10;
 
-        $display("\n--- TEST 4: Próba zapisu do R16 z i_wr_en = 0 (nie powinno zmienić danych) ---");
+        $display("\n--- TEST 4: Attempt write to R16 with i_wr_en = 0 (data should not change) ---");
         @(negedge aclk);
         i_wr_en   = 0;         
         i_wr_addr = 5'd01;
@@ -87,7 +87,7 @@ module tb_reg_file();
         i_rd_addr1 = 5'd01; 
         #10;
 
-        $display("\nKoniec symulacji!");
+        $display("\nSimulation finished!");
         $finish;
     end
     

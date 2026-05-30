@@ -1,6 +1,6 @@
 package avr_pkg;
     
-    // Operacje dla ALU
+    // ALU operations
     parameter int ALU_ADD =  5'd0;
     parameter int ALU_ADC =  5'd1;
     parameter int ALU_SUB =  5'd2;
@@ -21,8 +21,7 @@ package avr_pkg;
     parameter int ALU_LSL =  5'd17;
     parameter int ALU_ROL =  5'd18;
 
-    
-    // Flagi    I - T - H - S - V - N - Z - C 
+    // Flags    I - T - H - S - V - N - Z - C 
     parameter int SREG_C = 0;
     parameter int SREG_Z = 1;
     parameter int SREG_N = 2;
@@ -32,7 +31,7 @@ package avr_pkg;
     parameter int SREG_T = 6;
     parameter int SREG_I = 7;
     
-    // Rejestry R0:R31
+    // Registers R0:R31
     parameter int R0 = 5'd0;
     parameter int R1 = 5'd1;
     parameter int R2 = 5'd2;
@@ -66,13 +65,13 @@ package avr_pkg;
     parameter int R30 = 5'd30;
     parameter int R31 = 5'd31;
     
-    // ALU Mux do wejścia Rr
+    // ALU MUX for input data
     parameter int ALU_REG =  2'b00;
     parameter int ALU_IMM =  2'b01;
     parameter int ALU_RAM = 2'b10;
     parameter int ALU_ONE =  2'b11;
     
-    // Typy instrukcji:
+    // Instruction types
     parameter int ITYPE_NOP =  6'd0;
     parameter int ITYPE_ADD =  6'd1;
     parameter int ITYPE_ADC =  6'd2;
@@ -99,19 +98,19 @@ package avr_pkg;
     parameter int ITYPE_LSL =  6'd23;
     parameter int ITYPE_ROL =  6'd24;
     
-    // Sterowanie PC
+    // PC control
     parameter int PC_HOLD     = 2'b00;
     parameter int PC_INC      = 2'b01;
     parameter int PC_OFFSET   = 2'b10;
     parameter int PC_ABS_ADDR = 2'b11;
     
-    // Stany FSM
+    // FSM states
     parameter int ST_FETCH =   2'b00;
     parameter int ST_DECODE =  2'b01;
     parameter int ST_EXECUTE = 2'b10;
     parameter int ST_MEM =     2'b11;
     
-    // Rejestry GPIO
+    // GPIO Registers
     parameter int PINB =  16'h0023;
     parameter int DDRB =  16'h0024;
     parameter int PORTB = 16'h0025;
@@ -125,14 +124,13 @@ package avr_pkg;
     parameter int DDRE =  16'h002D;
     parameter int PORTE = 16'h002E;
     
-    
-    // Stany UART
+    // UART States
     parameter int UART_IDLE = 3'd0;
     parameter int UART_START_BIT = 3'd1;
     parameter int UART_DATA_BITS = 3'd2;
     parameter int UART_STOP_BIT = 3'd3;
     parameter int UART_END = 3'd4;
-    // Parametry UART
+    // UART parameters
     parameter int MAIN_CLK = 12000000;
     parameter int UART_BAUD = 9600;
     parameter int UART_CLK_PER_BIT = MAIN_CLK / UART_BAUD;

@@ -1,44 +1,41 @@
 `timescale 1ns / 1ps
 
 module execution_unit(
-    // Ogólne sygnały
     input        i_clk,
     input        i_rst_n,
-    // Plik rejestrów
+    // Register File controls
     input        i_wr_en,
     input [4:0]  i_wr_addr,
     input [4:0]  i_rd_addr1,
     input [4:0]  i_rd_addr2,
-    // MUX do wyboru wejścia do alu
+    // MUX going to ALU control
     input [7:0]  i_imm,
     input [1:0]  i_sel_alu,
-    // Sygnały ALU
+    // ALU control
     input [4:0]  i_alu_op,
     input        i_C_in,
-    // Sygnały SREG
+    // SREG control
     input        i_sreg_we,
-    // Sygnały program counter
+    // Program Counter control
     input [1:0]  i_ctr_pc,
     input [15:0] i_load_val,
-    // Dane z pamięci danych
+    // RAM data in
     input [7:0]  i_RAM,
-    // Wyjścia
+    // Outputs
     output logic [7:0]  o_data,
     output logic [7:0]  o_Flag,
     output logic [15:0] o_pc
 );
     
     import avr_pkg::*;
-    // Flagi
+    
+    // Internal connections
     logic [7:0] alu_flags;
-    // Wyjścia rejestru
     logic [7:0] rd_data1, rd_data2;
-    // Wyjście ALU
     logic [7:0] alu_result;
-    // MUX wejścia Rr do ALU
     logic [7:0] alu_input_sel;
     
-    // MUX do kontroli liczby wchodzącej do ALU
+    // MUX to choose data source entering ALU
     always_comb begin
         unique case (i_sel_alu)
             2'b00: alu_input_sel = rd_data2;  
@@ -48,12 +45,12 @@ module execution_unit(
         endcase
     end
     
-    // Wyjście danych do RAM przez port Rd pliku rejestrów
+    // Rd_data1 used as access point - storing to RAM
     always_comb begin
         o_data = rd_data1;
     end
     
-    // Instancje modułów
+    // Modules instances
     alu eu_alu(
         .i_Rd(rd_data1),
         .i_Rr(alu_input_sel),

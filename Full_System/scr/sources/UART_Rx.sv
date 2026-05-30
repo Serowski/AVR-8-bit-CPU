@@ -1,18 +1,19 @@
 `timescale 1ns / 1ps
 
 module UART_Rx(
-    input i_clk,
-    input i_rst,
-    input i_Rx_data,
-    
-    output logic [7:0] o_prog_data,
-    output logic o_prog_we,
+    input               i_clk,
+    input               i_rst,
+    // Input serial data
+    input               i_Rx_data,
+    // Output parrarel data and address
+    output logic [7:0]  o_prog_data,
+    output logic        o_prog_we,
     output logic [12:0] o_prog_addr
     );
     
     import avr_pkg::*;
     
-    // Rejestry pomocnicze
+    // Internal registers
     logic [2:0] state;
     logic [10:0] clk_count;
     logic [2:0] bit_idx;
@@ -20,8 +21,8 @@ module UART_Rx(
     logic prog_we;
     logic [12:0] addr_counter;
     
-    // Podwójny rejestr na wchodzące dane
-    // Eliminacja zjawiska metastabilności
+    // Double register for input data
+    // Eliminating the effect of metastability
     logic data_in, data;
     
     always_ff @(posedge i_clk) begin
@@ -29,7 +30,7 @@ module UART_Rx(
         data <= data_in;    
     end
     
-    // Główna maszyna stanów — jeden blok always_ff
+    // Main FSM definition
     always_ff @(posedge i_clk or posedge i_rst) begin
         if(i_rst) begin
             state        <= UART_IDLE;
@@ -100,7 +101,6 @@ module UART_Rx(
         end
     end
     
-    // Wyjścia — każdy sygnał ma dokładnie jedno źródło
     assign o_prog_data = read_byte;
     assign o_prog_we   = prog_we;
     assign o_prog_addr = addr_counter;
