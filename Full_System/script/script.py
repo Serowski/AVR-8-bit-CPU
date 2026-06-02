@@ -4,7 +4,7 @@ import time
 
 COM_PORT = 'COM6'     
 BAUD_RATE = 9600       
-HEX_FILE = 'projekt1.hex'  
+HEX_FILE = 'demo.hex'  
 
 def main():
     print(f"*** AVR Softcore Programmer ***\n")
@@ -20,7 +20,7 @@ def main():
 
             with open(HEX_FILE, 'r') as file:
                 lines = file.readlines()
-                total_lines = len(lines)
+                total_lines = len(lines)-2
                 
                 print(f"Succesfully read file: '{HEX_FILE}'.")
                 print(f"Total lines in HEX file: {total_lines}")
@@ -37,7 +37,7 @@ def main():
                         continue
                     
                     # Check if line starts with ':'
-                    if clean_line[0] != ':':
+                    if clean_line[0] != ':':    
                         print(f"\n[ERROR] Line {i+1}: Invalid format.")
                         continue
                     
@@ -85,7 +85,7 @@ def main():
                         bytes_sent_total += 1
 
                     # Progress bar
-                    sys.stdout.write(f"  Line [{i+1}/{total_lines}] | Address: 0x{hex_address} | Bytes in line: {byte_count} | Total sent: {bytes_sent_total}\r")
+                    sys.stdout.write(f"  Line [{i}/{total_lines}] | Address: 0x{hex_address} | Bytes in line: {byte_count} | Total sent: {bytes_sent_total}\r")
                     sys.stdout.flush()
 
             print(f"\n\n[HURRAY] Successfully flashed! Total of {bytes_sent_total} bytes sent!")
